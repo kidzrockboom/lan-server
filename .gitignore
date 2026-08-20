@@ -1,0 +1,10 @@
+# Actual video files shouldn't be committed
+videos/*
+!videos/.gitkeep
+
+# Build output
+/server
+/bin/
+
+# Local environment config
+.env

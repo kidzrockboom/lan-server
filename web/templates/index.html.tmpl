@@ -1,0 +1,35 @@
+<!-- Video list page (NOTES.md step 2). Rendered via html/template, not
+     string concatenation, to avoid reflecting filenames unescaped. -->
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>LAN Video Server</title>
+</head>
+<body>
+	<h1>Videos</h1>
+<!-- 1. The Video Player -->
+    {{if .CurrentVideo}}
+        <h3>Now Playing: {{.CurrentVideo}}</h3>
+        <video controls autoplay>
+            <!-- Points to the http.FileServer route -->
+            <source src="/stream/{{.CurrentVideo}}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    {{else}}
+        <p>Select a video from the list below to start watching.</p>
+    {{end}}
+
+    <!-- 2. The Video Playlist Selection -->
+    <h2>Available Videos</h2>
+    <ul class="playlist">
+        {{range .Files}}
+            {{if not .IsDir}}
+                <li>
+                    🎬 <a href="/?play={{.Name}}">{{.Name}}</a>
+                </li>
+            {{end}}
+        {{end}}
+    </ul>
+</body>
+</html>
